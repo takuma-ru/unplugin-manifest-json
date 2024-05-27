@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "get-manifest": "node  --trace-deprecation .scripts/getManifestDocs.mjs"
+    "lint": "biome lint --apply ."
   },
   "devDependencies": {
     "@types/chrome": "^0.0.268",

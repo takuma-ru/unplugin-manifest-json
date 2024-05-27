@@ -1,0 +1,33 @@
+{
+	"folders": [
+		{
+			"name": "root",
+			"path": "."
+		},
+		{
+			"name": "----------",
+			"path": "a"
+		},
+		{
+			"path": "packages/core"
+		},
+		{
+			"path": "packages/unplugin"
+		}
+	],
+	"settings": {
+		"editor.defaultFormatter": "biomejs.biome",
+		"[javascript]": {
+			"editor.defaultFormatter": "biomejs.biome"
+		},
+
+		"editor.codeActionsOnSave": {
+			"quickfix.biome": "explicit",
+			"source.organizeImports.biome": "explicit"
+		},
+
+		"terminal.integrated.cwd": "${workspaceFolder}",
+
+		"cSpell.words": ["biomejs"]
+	}
+}

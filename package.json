@@ -1,5 +1,5 @@
 {
-  "name": "manifest-json",
+  "name": "manifest-ws",
   "version": "0.0.1",
   "scripts": {
     "p:core": "pnpm -C packages/core",
@@ -13,5 +13,8 @@
   "volta": {
     "node": "20.13.1",
     "pnpm": "9.1.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.7.3"
   }
 }
