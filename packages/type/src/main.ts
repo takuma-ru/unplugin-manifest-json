@@ -2,23 +2,10 @@ import { existsSync } from "node:fs";
 import { pascalCase } from "scule";
 import { type InterfaceDeclaration, Project, type SourceFile } from "ts-morph";
 import { manifestJSDoc } from "../src/manifest.docs";
-
-const iterateObject = <T extends object>(
-	obj: T,
-	callback: (key: keyof T, value: T[keyof T], depth: number) => void,
-	depth = 0,
-): void => {
-	for (const key in obj) {
-		if (Object.hasOwn(obj, key)) {
-			const value = obj[key as keyof T];
-
-			if (typeof value === "object" && key !== "support" && value !== null) {
-				callback(key, value, depth);
-				iterateObject(value as unknown as T, callback, depth + 1);
-			}
-		}
-	}
-};
+import type { ManifestJSDoc } from "./types";
+import { convertType } from "./utils/convertType";
+import { getInterface } from "./utils/getInterface";
+import { iterateObject } from "./utils/iterateObject";
 
 export const generateManifestJsonType = async () => {
 	const filePath = "./dist/@types/manifest.d.ts";
@@ -37,22 +24,14 @@ export const generateManifestJsonType = async () => {
 		isExported: true,
 	});
 
-	const getInterface = (name: string) => {
-		const targetInterface = sourceFile.getInterface(name);
-		if (targetInterface === undefined) {
-			throw new Error(`Interface ${name} not found`);
-		}
-		return targetInterface;
-	};
-
 	const addPropertyToInterface = (
 		targetInterface: InterfaceDeclaration,
 		name: string,
-		type: string,
+		type: ManifestJSDoc[string]["type"],
 	) => {
 		targetInterface.addProperty({
 			name: name,
-			type: type,
+			type: convertType(type),
 		});
 	};
 
@@ -60,7 +39,10 @@ export const generateManifestJsonType = async () => {
 
 	iterateObject(manifestJSDoc, (key, value, depth) => {
 		if (value.type === "object") {
-			const targetInterface = getInterface(targetInterfaceName);
+			const targetInterface = getInterface({
+				sourceFile,
+				name: targetInterfaceName,
+			});
 
 			addPropertyToInterface(
 				targetInterface,
@@ -73,22 +55,20 @@ export const generateManifestJsonType = async () => {
 				name: targetInterfaceName,
 			});
 		} else if (depth > 0) {
-			const targetInterface = getInterface(targetInterfaceName);
+			const targetInterface = getInterface({
+				sourceFile,
+				name: targetInterfaceName,
+			});
 
-			addPropertyToInterface(
-				targetInterface,
-				key.toString(),
-				value.type as string,
-			);
+			addPropertyToInterface(targetInterface, key.toString(), value.type);
 		} else {
 			targetInterfaceName = "Manifest";
-			const targetInterface = getInterface(targetInterfaceName);
+			const targetInterface = getInterface({
+				sourceFile,
+				name: targetInterfaceName,
+			});
 
-			addPropertyToInterface(
-				targetInterface,
-				key.toString(),
-				value.type as string,
-			);
+			addPropertyToInterface(targetInterface, key.toString(), value.type);
 		}
 	});
 
