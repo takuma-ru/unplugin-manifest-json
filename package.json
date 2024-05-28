@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "p:core": "pnpm -C packages/core",
+    "p:type": "pnpm -C packages/type",
     "p:unplugin": "pnpm -C packages/unplugin"
   },
   "engines": {
