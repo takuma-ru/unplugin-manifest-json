@@ -1,10 +1,8 @@
 import { existsSync } from "node:fs";
 import { pascalCase } from "scule";
-import { type InterfaceDeclaration, Project, type SourceFile } from "ts-morph";
-import { manifestJSDoc } from "../src/manifest.docs";
-import type { ManifestJSDoc } from "./types";
-import { convertObjToTable } from "./utils/convertObjToTable";
-import { convertType } from "./utils/convertType";
+import { Project, type SourceFile } from "ts-morph";
+import { manifestJSDoc } from "./manifestJsDoc";
+import { addPropertyToInterface } from "./utils/addPropertyToInterface";
 import { getInterface } from "./utils/getInterface";
 import { iterateObject } from "./utils/iterateObject";
 
@@ -25,62 +23,37 @@ export const generateManifestJsonType = async () => {
 		isExported: true,
 	});
 
-	const addPropertyToInterface = (
-		targetInterface: InterfaceDeclaration,
-		name: string,
-		value: ManifestJSDoc[string],
-	) => {
-		targetInterface
-			.addProperty({
-				name: name,
-				type: convertType(value.type),
-			})
-			.addJsDoc({
-				description: value.description,
-				tags: [
-					{
-						tagName: "version",
-						text: value.version,
-					},
-					{
-						tagName: "link",
-						text: value.link,
-					},
-					{
-						tagName: "support",
-						text: convertObjToTable(value.support),
-					},
-				],
-			});
-	};
-
-	let targetInterfaceName = "Manifest";
+	const targetInterfaceName = ["Manifest"];
 
 	iterateObject(manifestJSDoc, (key, value, depth) => {
 		let targetInterface = getInterface({
 			sourceFile,
-			name: targetInterfaceName,
+			name: targetInterfaceName[depth],
 		});
 
-		if (value.type === "object") {
-			addPropertyToInterface(targetInterface, key.toString(), {
+		const stringKey = key.toString();
+
+		if (value.acceptableType === "object") {
+			const removeLength = targetInterfaceName.length - depth - 1;
+			targetInterfaceName.splice(-removeLength, removeLength);
+
+			targetInterfaceName.push(pascalCase(stringKey));
+
+			addPropertyToInterface(targetInterface, stringKey, {
 				...value,
-				type: targetInterfaceName,
-			});
-			targetInterfaceName = pascalCase(key.toString());
-			sourceFile.addInterface({
-				name: targetInterfaceName,
-			});
-		} else if (depth > 0) {
-			addPropertyToInterface(targetInterface, key.toString(), value);
-		} else {
-			targetInterfaceName = "Manifest";
-			targetInterface = getInterface({
-				sourceFile,
-				name: targetInterfaceName,
+				acceptableType: targetInterfaceName[depth + 1],
 			});
 
-			addPropertyToInterface(targetInterface, key.toString(), value);
+			sourceFile.addInterface({
+				name: targetInterfaceName[depth + 1],
+			});
+
+			targetInterface = getInterface({
+				sourceFile,
+				name: targetInterfaceName[depth + 1],
+			});
+		} else {
+			addPropertyToInterface(targetInterface, stringKey, value);
 		}
 	});
 

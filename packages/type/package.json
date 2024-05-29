@@ -1,8 +1,24 @@
 {
-  "name": "type",
+  "name": "@web-app-manifest/type",
   "version": "1.0.0",
   "description": "",
   "types": "./dist/@types/manifest.d.ts",
+  "exports": {
+    "./@types/manifest": {
+      "import": "./dist/@types/manifest.d.ts",
+      "require": "./dist/@types/manifest.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/@types/manifest.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsx ./src/main.ts",
     "lint": "biome lint --apply .",

@@ -1,7 +1,9 @@
-import type { ManifestJSDoc } from "../types";
+import type { ManifestJSDoc } from "../types/ManifestJsDoc";
 
-export const convertType = (type: ManifestJSDoc[string]["type"]): string => {
-	switch (type) {
+export const convertType = (
+	acceptableType: ManifestJSDoc[string]["acceptableType"],
+): string => {
+	switch (acceptableType) {
 		case "boolean": {
 			return "boolean";
 		}
@@ -15,25 +17,27 @@ export const convertType = (type: ManifestJSDoc[string]["type"]): string => {
 			return "object";
 		}
 		default: {
-			if (Array.isArray(type)) {
-				if (type[0] === "array") {
+			if (Array.isArray(acceptableType)) {
+				if (acceptableType[0] === "array") {
 					if (
-						typeof type[1] === "object" &&
-						type[1] !== null &&
-						"type" in type[1]
+						typeof acceptableType[1] === "object" &&
+						acceptableType[1] !== null &&
+						"acceptableType" in acceptableType[1]
 					) {
-						return `${convertType(type[1].type)}[]`;
+						return `${convertType(acceptableType[1].acceptableType)}[]`;
 					}
 				}
 
-				if (type[0] === "true" || type[0] === "false") {
-					return type[0];
+				if (acceptableType[0] === "true" || acceptableType[0] === "false") {
+					return acceptableType[0];
 				}
 
-				return type.map((type) => `"${type}"`).join(" | ");
+				return acceptableType
+					.map((acceptableType) => `"${acceptableType}"`)
+					.join(" | ");
 			}
 
-			return type?.toString() ?? "unknown";
+			return acceptableType?.toString() ?? "unknown";
 		}
 	}
 };

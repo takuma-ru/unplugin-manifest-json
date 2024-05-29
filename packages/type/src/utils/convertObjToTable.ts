@@ -1,4 +1,4 @@
-import type { ManifestJSDoc } from "../types";
+import type { ManifestJSDoc } from "../types/ManifestJsDoc";
 
 export const convertObjToTable = (obj: ManifestJSDoc[string]["support"]) => {
 	if (!obj) return "";
@@ -8,11 +8,36 @@ export const convertObjToTable = (obj: ManifestJSDoc[string]["support"]) => {
 		.join(" | ");
 
 	const values = Object.values(obj)
-		.map((value) =>
-			typeof value === "object" && !(value instanceof String)
-				? `${value.start}-${value.end}`
-				: value,
-		)
+		.map((value) => {
+			let status = "";
+			switch (value.status) {
+				case "full": {
+					status = "✅";
+					break;
+				}
+				case "partial": {
+					status = "⚠️";
+					break;
+				}
+				case "no": {
+					status = "❌";
+					break;
+				}
+			}
+
+			let period = "";
+			if (value.start && value.end) {
+				period = ` ${value.start} - ${value.end}`;
+			} else if (value.start) {
+				if (value.start === "yes") {
+					period = " Yes";
+				}
+
+				period = ` ${value.start}`;
+			}
+
+			return `${status}${period}${value.isImplementation ? "※" : ""}`;
+		})
 		.join(" | ");
 
 	const markdownTable = `

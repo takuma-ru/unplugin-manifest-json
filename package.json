@@ -1,5 +1,5 @@
 {
-  "name": "manifest-ws",
+  "name": "@web-app-manifest/monorepo",
   "version": "0.0.1",
   "scripts": {
     "p:core": "pnpm -C packages/core",

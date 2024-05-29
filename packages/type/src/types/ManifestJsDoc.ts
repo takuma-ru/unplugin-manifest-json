@@ -18,44 +18,54 @@ type ManifestJSDocContent = {
 	 * ### number: `"number"`
 	 * union of strings: `[100, 200, 300]` -> `100 | 200 | 300`
 	 *
-	 * ### array: `["array", { type: "string" }]` -> `string[]`
-	 * union of strings: `["array", { type: ["string1", "string2"] }]` -> `("string1" | "string2")[]`
+	 * ### array: `["array", { acceptableType: "string" }]` -> `string[]`
+	 * union of strings: `["array", { acceptableType: ["string1", "string2"] }]` -> `("string1" | "string2")[]`
 	 *
 	 * ### object: `"object"`
 	 * The contents of the object should be described as follows
 	 * ```ts
 	 * {
-	 *   type: "object",
+	 *   acceptableType: "object",
 	 *   // ...
 	 *   objectProperty01: {
-	 *     type: "string",
+	 *     acceptableType: "string",
 	 *     // ...
 	 *   }
 	 * }
 	 * ```
 	 */
-	type?:
+	acceptableType?:
 		| "boolean"
 		| "string"
 		| "number"
 		| string[]
 		| number[]
-		| ["array", { type: ManifestJSDocContent["type"] }]
+		| ["array", { acceptableType: ManifestJSDocContent["acceptableType"] }]
 		| "object"
 		// biome-ignore lint/complexity/noBannedTypes: <explanation>
 		| String;
-	version?: string;
+	isRequired?: boolean;
+	version?: "3" | "2" | "3 >=" | "2 >=";
 	link?: `https://${string}`;
 	default?: string;
 	deprecated?: string;
 	description?: string;
 	support?: {
 		[key in SupportBrowserKey]:
-			| "no"
-			| "yes"
-			// biome-ignore lint/complexity/noBannedTypes: <explanation>
-			| String
-			| { start: string; end: string };
+			| {
+					status: "full" | "partial";
+					// biome-ignore lint/complexity/noBannedTypes: <explanation>
+					start: "yes" | String;
+					end?: string;
+					isImplementation?: boolean;
+			  }
+			| {
+					status: "no";
+					// biome-ignore lint/complexity/noBannedTypes: <explanation>
+					start?: "yes" | String;
+					end?: string;
+					isImplementation?: boolean;
+			  };
 	};
 };
 
