@@ -72,7 +72,8 @@ type ManifestJSDocContent = {
 type ManifestJSDocWithNestedObj = ManifestJSDocContent & {
 	[key in Exclude<string, keyof ManifestJSDocContent>]?:
 		| ManifestJSDocContent[keyof ManifestJSDocContent]
-		| ManifestJSDocContent;
+		| ManifestJSDocContent
+		| ManifestJSDocWithNestedObj;
 };
 
 export type ManifestJSDoc = {
