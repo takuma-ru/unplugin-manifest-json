@@ -51,6 +51,16 @@ export interface Manifest {
      *
      */
     browser_specific_settings?: BrowserSpecificSettings;
+    /**
+     * @version 2 >=
+     * @link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/chrome_settings_overrides
+     * @support
+     * | Chrome | Edge | Firefox | Opera | Safari | FirefoxForAndroid | SafariOnIOS |
+     * | -- | -- | -- | -- | -- | -- | -- |
+     * | ✅ yes | ✅ 79 | ✅ 55 | ❌ | ❌ | ❌ | ❌ |
+     *
+     */
+    chrome_settings_overrides?: ChromeSettingsOverrides;
 }
 
 interface Action {
@@ -240,4 +250,52 @@ interface Safari {
     strict_max_version?: string;
     /** A link to an extension update manifest. Note that the link must begin with "https". This key is for managing extension updates yourself (i.e., not through AMO). */
     update_url?: string;
+}
+
+interface ChromeSettingsOverrides {
+    /**
+     * Defines the page to be used as the browser's homepage.
+     * To override new tabs, use [chrome_url_overrides](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/chrome_url_overrides) instead.
+     */
+    homepage?: string;
+    /**
+     * Defines a search provider to add to the browser.
+     * The search provider has a name and a primary search URL. Alternative URLs may be provided, including URLs for more specialized searches like image search. In the URL you supply, use "{searchTerms}" to interpolate the search term into the URL, like: https://www.discogs.com/search/?q={searchTerms}. You can also provide POST parameters to be sent along with the search.
+     * The search provider will be presented to the user alongside the built-in providers. If you include the is_default property and set it to true, the new search provider will be the default option. By supplying the keyword property, you enable the user to select your search provider by typing the keyword into the search/address bar before the search term.
+     * This is an object with the properties listed below. All string properties are [localizable](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Internationalization#internationalizing_manifest.json).
+     */
+    search_provider?: SearchProvider;
+}
+
+interface SearchProvider {
+    /** The search engine's name, displayed to the user. */
+    name: string;
+    /** URL used by the search engine. This must be an HTTPS URL. */
+    search_url: string;
+    /** True if the search engine should be the default choice. On Firefox, this is opt-in and the user will only be asked the first time the extension is installed. They will not be asked again if a search engine is added later. */
+    is_default?: boolean;
+    /** An array of alternative URLs that can be used instead of search_url. */
+    alternate_urls?: string[];
+    /** */
+    encoding?: string;
+    /** */
+    favicon_url?: string;
+    /** */
+    image_url?: string;
+    /** */
+    image_url_post_params?: string;
+    /** */
+    instant_url?: string;
+    /** */
+    instant_url_post_params?: string;
+    /** */
+    keyword?: string;
+    /** */
+    prepopulated_id?: string;
+    /** */
+    search_url_post_params?: string;
+    /** */
+    suggest_url?: string;
+    /** */
+    suggest_url_post_params?: string;
 }
