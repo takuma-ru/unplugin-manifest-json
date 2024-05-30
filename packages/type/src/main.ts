@@ -18,10 +18,15 @@ export const generateManifestJsonType = async () => {
 		sourceFile = project.createSourceFile(filePath);
 	}
 
-	sourceFile.addInterface({
-		name: "Manifest",
-		isExported: true,
-	});
+	sourceFile
+		.addInterface({
+			name: "Manifest",
+			isExported: true,
+		})
+		.addJsDoc({
+			description:
+				"The type of the manifest JSDoc object.\n\n※ Descriptions of each type are given from https://developer.mozilla.org",
+		});
 
 	const targetInterfaceName = ["Manifest"];
 

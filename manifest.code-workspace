@@ -16,6 +16,9 @@
     },
     {
       "path": "packages/unplugin"
+    },
+    {
+      "path": "packages/cli"
     }
   ],
   "settings": {

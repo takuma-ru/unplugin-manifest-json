@@ -34,7 +34,7 @@ type ManifestJSDocContent = {
 	 * }
 	 * ```
 	 */
-	acceptableType?:
+	acceptableType:
 		| "boolean"
 		| "string"
 		| "number"
@@ -76,6 +76,11 @@ type ManifestJSDocWithNestedObj = ManifestJSDocContent & {
 		| ManifestJSDocWithNestedObj;
 };
 
+/**
+ * The type of the manifest JSDoc object.
+ *
+ * ※ Descriptions of each type are given from https://developer.mozilla.org
+ */
 export type ManifestJSDoc = {
 	[key in string]: ManifestJSDocWithNestedObj;
 };

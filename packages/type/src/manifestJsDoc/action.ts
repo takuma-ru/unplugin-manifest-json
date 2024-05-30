@@ -97,7 +97,7 @@ export const actionManifestJsDoc: ManifestJSDoc = {
 			},
 		},
 		default_icon: {
-			acceptableType: "object",
+			acceptableType: "{ [key in number | string]: string }",
 			support: {
 				chrome: {
 					status: "full",
@@ -131,30 +131,6 @@ export const actionManifestJsDoc: ManifestJSDoc = {
 					start: "15.4",
 					isImplementation: true,
 				},
-			},
-			"16": {
-				acceptableType: "string",
-			},
-			"32": {
-				acceptableType: "string",
-			},
-			"48": {
-				acceptableType: "string",
-			},
-			"64": {
-				acceptableType: "string",
-			},
-			"96": {
-				acceptableType: "string",
-			},
-			"128": {
-				acceptableType: "string",
-			},
-			"256": {
-				acceptableType: "string",
-			},
-			"512": {
-				acceptableType: "string",
 			},
 		},
 		default_popup: {
