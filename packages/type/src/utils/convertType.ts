@@ -1,6 +1,7 @@
 import type { ManifestJSDoc } from "../types/ManifestJsDoc";
 
 export const convertType = (
+	targetInterfaceName: string,
 	acceptableType: ManifestJSDoc[string]["acceptableType"],
 ): string => {
 	switch (acceptableType) {
@@ -16,6 +17,9 @@ export const convertType = (
 		case "object": {
 			return "object";
 		}
+		case "anyKeyObject": {
+			return `{ [key: string]: ${targetInterfaceName} }`;
+		}
 		default: {
 			if (Array.isArray(acceptableType)) {
 				if (acceptableType[0] === "array") {
@@ -24,7 +28,10 @@ export const convertType = (
 						acceptableType[1] !== null &&
 						"acceptableType" in acceptableType[1]
 					) {
-						return `${convertType(acceptableType[1].acceptableType)}[]`;
+						return `${convertType(
+							targetInterfaceName,
+							acceptableType[1].acceptableType,
+						)}[]`;
 					}
 				}
 

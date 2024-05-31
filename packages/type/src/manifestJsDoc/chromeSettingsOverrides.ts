@@ -33,7 +33,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 		},
 		homepage: {
 			acceptableType: "string",
-			description:
+			descriptionDoc:
 				"Defines the page to be used as the browser's homepage.\nTo override new tabs, use [chrome_url_overrides](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/chrome_url_overrides) instead.",
 			support: {
 				chrome: {
@@ -64,7 +64,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 		},
 		search_provider: {
 			acceptableType: "object",
-			description: `Defines a search provider to add to the browser.\nThe search provider has a name and a primary search URL. Alternative URLs may be provided, including URLs for more specialized searches like image search. In the URL you supply, use "{searchTerms}" to interpolate the search term into the URL, like: https://www.discogs.com/search/?q={searchTerms}. You can also provide POST parameters to be sent along with the search.\nThe search provider will be presented to the user alongside the built-in providers. If you include the is_default property and set it to true, the new search provider will be the default option. By supplying the keyword property, you enable the user to select your search provider by typing the keyword into the search/address bar before the search term.\nThis is an object with the properties listed below. All string properties are [localizable](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Internationalization#internationalizing_manifest.json).`,
+			descriptionDoc: `Defines a search provider to add to the browser.\nThe search provider has a name and a primary search URL. Alternative URLs may be provided, including URLs for more specialized searches like image search. In the URL you supply, use "{searchTerms}" to interpolate the search term into the URL, like: https://www.discogs.com/search/?q={searchTerms}. You can also provide POST parameters to be sent along with the search.\nThe search provider will be presented to the user alongside the built-in providers. If you include the is_default property and set it to true, the new search provider will be the default option. By supplying the keyword property, you enable the user to select your search provider by typing the keyword into the search/address bar before the search term.\nThis is an object with the properties listed below. All string properties are [localizable](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Internationalization#internationalizing_manifest.json).`,
 			support: {
 				chrome: {
 					status: "full",
@@ -94,7 +94,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			name: {
 				acceptableType: "string",
 				isRequired: true,
-				description: "The search engine's name, displayed to the user.",
+				descriptionDoc: "The search engine's name, displayed to the user.",
 				support: {
 					chrome: {
 						status: "full",
@@ -125,7 +125,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			search_url: {
 				acceptableType: "string",
 				isRequired: true,
-				description:
+				descriptionDoc:
 					"URL used by the search engine. This must be an HTTPS URL.",
 				support: {
 					chrome: {
@@ -156,7 +156,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			},
 			is_default: {
 				acceptableType: "boolean",
-				description:
+				descriptionDoc:
 					"True if the search engine should be the default choice. On Firefox, this is opt-in and the user will only be asked the first time the extension is installed. They will not be asked again if a search engine is added later.",
 				support: {
 					chrome: {
@@ -188,7 +188,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			},
 			alternate_urls: {
 				acceptableType: ["array", { acceptableType: "string" }],
-				description:
+				descriptionDoc:
 					"An array of alternative URLs that can be used instead of search_url.",
 				support: {
 					chrome: {
@@ -219,7 +219,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			},
 			encoding: {
 				acceptableType: "string",
-				description:
+				descriptionDoc:
 					'Encoding of the search term, specified as a [standard character encoding name](https://www.iana.org/assignments/character-sets/character-sets.xhtml), such as "UTF-8".',
 				support: {
 					chrome: {
@@ -250,7 +250,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			},
 			favicon_url: {
 				acceptableType: "string",
-				description:
+				descriptionDoc:
 					"URL pointing to an icon for the search engine. In Manifest V2, this must be an absolute HTTP or HTTPS URL. In Manifest V3, this must reference an icon provided in the extension as a path relative to the extension's root.",
 				support: {
 					chrome: {
@@ -281,7 +281,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			},
 			image_url: {
 				acceptableType: "string",
-				description: "URL used for image search.",
+				descriptionDoc: "URL used for image search.",
 				support: {
 					chrome: {
 						status: "full",
@@ -310,7 +310,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			},
 			image_url_post_params: {
 				acceptableType: "string",
-				description: "POST parameters to send to `image_url`.",
+				descriptionDoc: "POST parameters to send to `image_url`.",
 				support: {
 					chrome: {
 						status: "full",
@@ -339,7 +339,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			},
 			instant_url: {
 				acceptableType: "string",
-				description: "URL used for instant search.",
+				descriptionDoc: "URL used for instant search.",
 				support: {
 					chrome: {
 						status: "full",
@@ -368,7 +368,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			},
 			instant_url_post_params: {
 				acceptableType: "string",
-				description: "POST parameters to send to instant_url.",
+				descriptionDoc: "POST parameters to send to instant_url.",
 				support: {
 					chrome: {
 						status: "full",
@@ -397,7 +397,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			},
 			keyword: {
 				acceptableType: "string",
-				description: "Address bar keyword for the search engine.",
+				descriptionDoc: "Address bar keyword for the search engine.",
 				support: {
 					chrome: {
 						status: "full",
@@ -427,7 +427,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			},
 			prepopulated_id: {
 				acceptableType: "string",
-				description: "The ID of a built-in search engine to use.",
+				descriptionDoc: "The ID of a built-in search engine to use.",
 				support: {
 					chrome: {
 						status: "full",
@@ -456,7 +456,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			},
 			search_url_post_params: {
 				acceptableType: "string",
-				description: "POST parameters to send to search_url.",
+				descriptionDoc: "POST parameters to send to search_url.",
 				support: {
 					chrome: {
 						status: "full",
@@ -486,7 +486,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			},
 			suggest_url: {
 				acceptableType: "string",
-				description:
+				descriptionDoc:
 					"URL used for search suggestions. This must be an HTTPS URL.",
 				support: {
 					chrome: {
@@ -517,7 +517,7 @@ export const ChromeSettingsOverridesManifestJsDoc: ManifestJSDoc = {
 			},
 			suggest_url_post_params: {
 				acceptableType: "string",
-				description: "POST parameters to send to suggest_url.",
+				descriptionDoc: "POST parameters to send to suggest_url.",
 				support: {
 					chrome: {
 						status: "full",

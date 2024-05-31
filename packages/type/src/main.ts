@@ -44,14 +44,29 @@ export const generateManifestJsonType = async () => {
 
 			targetInterfaceName.push(pascalCase(stringKey));
 
+			sourceFile.addInterface({
+				name: targetInterfaceName[depth + 1],
+			});
+
 			addPropertyToInterface(targetInterface, stringKey, {
 				...value,
 				acceptableType: targetInterfaceName[depth + 1],
 			});
 
+			targetInterface = getInterface({
+				sourceFile,
+				name: targetInterfaceName[depth + 1],
+			});
+		} else if (value.acceptableType === "anyKeyObject") {
+			const removeLength = targetInterfaceName.length - depth - 1;
+			targetInterfaceName.splice(-removeLength, removeLength);
+
+			targetInterfaceName.push(pascalCase(stringKey));
 			sourceFile.addInterface({
 				name: targetInterfaceName[depth + 1],
 			});
+
+			addPropertyToInterface(targetInterface, stringKey, value);
 
 			targetInterface = getInterface({
 				sourceFile,

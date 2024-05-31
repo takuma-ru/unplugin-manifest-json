@@ -5,7 +5,7 @@ export const backgroundManifestJsDoc: ManifestJSDoc = {
 		acceptableType: "object",
 		version: "2 >=",
 		link: "https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/background",
-		description:
+		descriptionDoc:
 			"Use the background key to include one or more background scripts, a background page, or a Service worker in your extension.\nBackground scripts are the place to put code that needs to maintain a long-term state or perform long-term operations independently of the lifetime of any particular web pages or browser windows.\nBackground scripts are loaded as soon as the extension is loaded and stay loaded until the extension is disabled or uninstalled unless persistent is specified as false. You can use any WebExtension APIs in the script if you have requested the necessary [permissions](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions).",
 		support: {
 			chrome: {
@@ -39,7 +39,7 @@ export const backgroundManifestJsDoc: ManifestJSDoc = {
 		},
 		page: {
 			acceptableType: "string",
-			description:
+			descriptionDoc:
 				"If you need specific content in the background page, you can define a page using the page property.",
 			support: {
 				chrome: {
@@ -78,7 +78,7 @@ export const backgroundManifestJsDoc: ManifestJSDoc = {
 		},
 		scripts: {
 			acceptableType: ["array", { acceptableType: "string" }],
-			description:
+			descriptionDoc:
 				"An Array of Strings, each of which is a path to a JavaScript source. The path is relative to the manifest.json file itself. These are the scripts that are executed in the extension's background page.",
 			support: {
 				chrome: {
@@ -119,7 +119,7 @@ export const backgroundManifestJsDoc: ManifestJSDoc = {
 		},
 		service_worker: {
 			acceptableType: "string",
-			description:
+			descriptionDoc:
 				"Specify a JavaScript file as the extension service worker. A service worker is a background script that acts as the extension's main event handler.",
 			support: {
 				chrome: {
@@ -157,7 +157,7 @@ export const backgroundManifestJsDoc: ManifestJSDoc = {
 		},
 		persistent: {
 			acceptableType: "boolean",
-			description:
+			descriptionDoc:
 				"If omitted, this property defaults to true in Manifest V2 and false in Manifest V3. Setting to true in Manifest V3 results in an error.\n- `true` indicates the background page is to be kept in memory from when the extension is loaded or the browser starts until the extension is unloaded or disabled, or the browser is closed (that is, the background page is persistent).\n- `false` indicates the background page may be unloaded from memory when idle and recreated when needed. Such background pages are often called Event Pages, because they are loaded into memory to allow the background page to handle the events to which it has added listeners. Registration of listeners is persistent when the page is unloaded from memory, but other values are not persistent. If you want to store data persistently in an event page, then you should use the [storage API](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage).",
 			support: {
 				chrome: {
@@ -197,8 +197,8 @@ export const backgroundManifestJsDoc: ManifestJSDoc = {
 		},
 		type: {
 			acceptableType: ["classic", "module"],
-			default: "classic",
-			description:
+			defaultType: "classic",
+			descriptionDoc:
 				'Determines whether the scripts specified in "scripts" are loaded as ES modules.\n- `classic` indicates the background scripts or service workers are not included as an ES Module.\n- `module` indicates the background scripts or service workers are included as an ES Module. This enables the background page or service worker to import code.',
 			support: {
 				chrome: {

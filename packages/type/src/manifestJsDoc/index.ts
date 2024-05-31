@@ -3,13 +3,15 @@ import { actionManifestJsDoc } from "./action";
 import { backgroundManifestJsDoc } from "./background";
 import { BrowserSpecificSettingsManifestJsDoc } from "./browserSpecificSettings";
 import { ChromeSettingsOverridesManifestJsDoc } from "./chromeSettingsOverrides";
+import { chromeUrlOverridesManifestJsDoc } from "./chromeUrlOverrides";
+import { commandsManifestJsDoc } from "./commands";
 
 export const manifestJSDoc: ManifestJSDoc = {
 	...actionManifestJsDoc,
 	author: {
 		acceptableType: "string",
 		version: "2 >=",
-		description:
+		descriptionDoc:
 			"The extension's author, intended for display in the browser's user interface",
 		link: "https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/author",
 		support: {
@@ -51,9 +53,11 @@ export const manifestJSDoc: ManifestJSDoc = {
 		acceptableType: "Action",
 		version: "2",
 		link: "https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_action",
-		description:
+		descriptionDoc:
 			"A browser action is a button that your extension adds to the browser's toolbar. The button has an icon, and may optionally have a popup whose content is specified using HTML, CSS, and JavaScript.\nThis key is replaced by `action` in Manifest V3 extensions.",
 	},
 	...BrowserSpecificSettingsManifestJsDoc,
 	...ChromeSettingsOverridesManifestJsDoc,
+	...chromeUrlOverridesManifestJsDoc,
+	...commandsManifestJsDoc,
 };

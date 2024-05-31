@@ -1,3 +1,4 @@
+import { pascalCase } from "scule";
 import type { InterfaceDeclaration } from "ts-morph";
 import type { ManifestJSDoc } from "../types/ManifestJsDoc";
 import { convertObjToTable } from "./convertObjToTable";
@@ -38,20 +39,20 @@ export const addPropertyToInterface = (
 		});
 	}
 
-	if (value.default) {
+	if (value.defaultType) {
 		tags.push({
 			tagName: "default",
-			text: value.default,
+			text: value.defaultType,
 		});
 	}
 
 	targetInterface
 		.addProperty({
 			name: name + (value.isRequired ? "" : "?"),
-			type: convertType(value.acceptableType),
+			type: convertType(pascalCase(name), value.acceptableType),
 		})
 		.addJsDoc({
-			description: value.description,
+			description: value.descriptionDoc,
 			tags,
 		});
 };

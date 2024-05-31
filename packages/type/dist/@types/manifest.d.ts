@@ -15,7 +15,6 @@ export interface Manifest {
      */
     action?: Action;
     /**
-     * The extension's author, intended for display in the browser's user interface
      * @version 2 >=
      * @link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/author
      * @support
@@ -39,8 +38,6 @@ export interface Manifest {
      */
     background?: Background;
     /**
-     * A browser action is a button that your extension adds to the browser's toolbar. The button has an icon, and may optionally have a popup whose content is specified using HTML, CSS, and JavaScript.
-     * This key is replaced by `action` in Manifest V3 extensions.
      * @version 2
      * @link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_action
      */
@@ -66,6 +63,22 @@ export interface Manifest {
      *
      */
     chrome_settings_overrides?: ChromeSettingsOverrides;
+    /**
+     * @version 2 >=
+     * @link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/chrome_url_overrides
+     * @support
+     * | Chrome | Edge | Firefox | Opera | Safari | FirefoxForAndroid | SafariOnIOS |
+     * | -- | -- | -- | -- | -- | -- | -- |
+     * | ✅ yes | ✅ 79 | ✅ 54 | ❌ | ✅ 41.1 | ❌ | ✅ 15 |
+     *
+     */
+    chrome_url_overrides?: ChromeUrlOverrides;
+    /**
+     * Use the commands key to define one or more keyboard shortcuts for your extension.
+     * @version 2 >=
+     * @link https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/commands
+     */
+    commands?: { [key: string]: Commands };
 }
 
 interface Action {
@@ -407,4 +420,55 @@ interface SearchProvider {
      *
      */
     suggest_url_post_params?: string;
+}
+
+interface ChromeUrlOverrides {
+    /**
+     * @support
+     * | Chrome | Edge | Firefox | Opera | Safari | FirefoxForAndroid | SafariOnIOS |
+     * | -- | -- | -- | -- | -- | -- | -- |
+     * | ✅ yes | ✅ 79 | ❌ | ❌ | ❌ | ❌ | ❌ |
+     *
+     */
+    bookmarks?: string;
+    /**
+     * @support
+     * | Chrome | Edge | Firefox | Opera | Safari | FirefoxForAndroid | SafariOnIOS |
+     * | -- | -- | -- | -- | -- | -- | -- |
+     * | ✅ yes | ✅ 79 | ❌ | ❌ | ❌ | ❌ | ❌ |
+     *
+     */
+    history?: string;
+    /**
+     * @support
+     * | Chrome | Edge | Firefox | Opera | Safari | FirefoxForAndroid | SafariOnIOS |
+     * | -- | -- | -- | -- | -- | -- | -- |
+     * | ✅ yes※ | ✅ 79※ | ✅ 54※ | ❌ | ✅ 41.1※ | ❌ | ✅ 15※ |
+     *
+     */
+    newtab?: string;
+}
+
+interface Commands {
+    /** */
+    suggested_key?: SuggestedKey;
+    /** */
+    description?: string;
+}
+
+interface SuggestedKey {
+    /** */
+    default?: string;
+    /** */
+    mac?: string;
+    /** */
+    linux?: string;
+    /** */
+    windows?: string;
+    /** */
+    chromeos?: string;
+    /** */
+    android?: string;
+    /** */
+    ios?: string;
 }

@@ -37,7 +37,7 @@ export const actionManifestJsDoc: ManifestJSDoc = {
 		},
 		browser_style: {
 			acceptableType: "boolean",
-			default: "false",
+			defaultType: "false",
 			deprecated:
 				"Do not set browser_style to true: its support in Manifest V3 was removed in Firefox 118. See [Manifest V3 migration for browser_style](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Browser_styles#manifest_v3_migration).",
 			support: {
@@ -68,8 +68,8 @@ export const actionManifestJsDoc: ManifestJSDoc = {
 		},
 		default_area: {
 			acceptableType: ["navbar", "menupanel", "tabstrip", "personaltoolbar"],
-			default: "menupanel",
-			description:
+			defaultType: "menupanel",
+			descriptionDoc:
 				"Defines the part of the browser in which the button is initially placed.",
 			support: {
 				chrome: {
@@ -135,7 +135,7 @@ export const actionManifestJsDoc: ManifestJSDoc = {
 		},
 		default_popup: {
 			acceptableType: "string",
-			description:
+			descriptionDoc:
 				"The path to an HTML file containing the specification of the popup.",
 			support: {
 				chrome: {
@@ -170,7 +170,7 @@ export const actionManifestJsDoc: ManifestJSDoc = {
 		},
 		default_title: {
 			acceptableType: "string",
-			description:
+			descriptionDoc:
 				"Tooltip for the button, displayed when the user moves their mouse over it. If the button is added to the browser's menu panel, this is also shown under the app icon.",
 			support: {
 				chrome: {

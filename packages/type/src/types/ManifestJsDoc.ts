@@ -42,14 +42,15 @@ type ManifestJSDocContent = {
 		| number[]
 		| ["array", { acceptableType: ManifestJSDocContent["acceptableType"] }]
 		| "object"
+		| "anyKeyObject"
 		// biome-ignore lint/complexity/noBannedTypes: <explanation>
 		| String;
 	isRequired?: boolean;
 	version?: "3" | "2" | "3 >=" | "2 >=";
 	link?: `https://${string}`;
-	default?: string;
+	defaultType?: string;
 	deprecated?: string;
-	description?: string;
+	descriptionDoc?: string;
 	support?: {
 		[key in SupportBrowserKey]:
 			| {
